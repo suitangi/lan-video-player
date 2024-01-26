@@ -1,0 +1,35 @@
+{
+  "name": "lan-video-player",
+  "version": "1.0.0",
+  "description": "Video player with LAN controls",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suitangi/lan-video-player.git"
+  },
+  "keywords": [
+    "Video",
+    "LAN",
+    "Network"
+  ],
+  "author": "suitangi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suitangi/lan-video-player/issues"
+  },
+  "homepage": "https://github.com/suitangi/lan-video-player#readme",
+  "devDependencies": {
+    "electron": "^28.1.4",
+    "express": "^4.18.2",
+    "jQuery": "^1.7.4",
+    "material-symbols": "^0.14.5",
+    "signale": "^1.4.0",
+    "socket.io": "^4.7.4",
+    "socket.io-client": "^4.7.4",
+    "video.js": "^8.9.0"
+  }
+}

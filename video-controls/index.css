@@ -1,0 +1,189 @@
+/* devanagari */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(/fonts/poppins-devanagari.woff2) format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(/fonts/poppins-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(/fonts/poppins-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --colorPrimary-h: 70;
+  --colorPrimary-s: 70;
+  --colorPrimary-l: 70;
+  --main-theme-color: var(--colorPrimary-h), var(--colorPrimary-s), var(--colorPrimary-l);
+  --lighten-percentage: 1.3;
+  --lighten-theme-color: calc(var(--colorPrimary-h)*var(--lighten-percentage)), calc(var(--colorPrimary-s)*var(--lighten-percentage)), calc(var(--colorPrimary-l)*var(--lighten-percentage));
+  --darken-percentage: 0.5;
+  --test: calc(var(--colorPrimary-h)*var(--darken-percentage));
+  --darken-theme-color: calc(var(--colorPrimary-h)*var(--darken-percentage)), calc(var(--colorPrimary-s)*var(--darken-percentage)), calc(var(--colorPrimary-l)*var(--darken-percentage));
+  --main-bg-color: #333333;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: rgba(var(--darken-theme-color), 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+#wrapper {
+  position: absolute;
+  width: min(98vw, 800px);
+  height: 100%;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, .2);
+  border-radius: 50px;
+  padding-top: 5%;
+}
+
+.buttonText {
+  font-size: 5vh;
+}
+
+#playButton {
+  position: absolute;
+  left: 25%;
+  transform: translateX(-50%);
+}
+
+#fsButton {
+  position: absolute;
+  left: 75%;
+  transform: translateX(-50%);
+}
+
+#progressWrapper {
+  margin-top: 15vh;
+}
+
+#progressTime {
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  left: 2%;
+  font-size: 2vh;
+  color: white;
+}
+
+#progressSldierContainer {
+  width: calc(96% - 120px);
+  /* background: black; */
+  position: absolute;
+  left: calc(2% + 60px);
+  transform: translateY(20%);
+}
+
+#progressDuration {
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  right: 2%;
+  font-size: 2vh;
+  color: white;
+}
+
+#volumeWrapper {
+  margin-top: 22vh;
+}
+
+#volumeButton {
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  left: 2%;
+  font-size: 2vh;
+  color: white;
+  cursor: pointer;
+  transform: translate(0, -10%);
+  width: 50px;
+  user-select: none;
+}
+
+#volumeSldierContainer {
+  width: calc(96% - 120px);
+  /* background: black; */
+  position: absolute;
+  left: calc(2% + 60px);
+  transform: translateY(20%);
+}
+
+#volumePercentage {
+  font-family: 'Poppins', sans-serif;
+  position: absolute;
+  right: 2%;
+  font-size: 2vh;
+  color: white;
+}
+
+#volumeButtonText {
+  font-size: 4vh;
+}
+
+.button {
+  background-color: rgba(var(--main-theme-color), 1);
+  border: none;
+  color: white;
+  padding: 1vh calc(1vh + 1px);
+  border-radius: 4vh;
+  text-align: center;
+  text-decoration: none;
+  margin: 4px 4px;
+  cursor: pointer;
+  z-index: 50;
+  transition-property: background-color;
+  transition-duration: 1s;
+  user-select: none;
+}
+
+.button:hover {
+  background-color: rgba(var(--lighten-theme-color), 1);
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: .6vh;
+  border-radius: 5px;
+  background: white;
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: rgba(var(--main-theme-color), 1);
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2vh;
+  height: 2vh;
+  border-radius: 50%;
+  background: rgba(var(--lighten-theme-color), 1);
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: 1s
+}
