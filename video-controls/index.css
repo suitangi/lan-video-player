@@ -75,6 +75,20 @@ body {
   transform: translateX(-50%);
 }
 
+#rewindButton {
+  position: absolute;
+  left: calc(50% - 100px);
+  top: 36vh;
+  transform: translateX(-50%);
+}
+
+#forwardButton {
+  position: absolute;
+  left: calc(50% + 100px);
+  top: 36vh;
+  transform: translateX(-50%);
+}
+
 #progressWrapper {
   margin-top: 15vh;
 }
@@ -186,4 +200,107 @@ body {
   cursor: pointer;
   transition-property: background-color;
   transition-duration: 1s
+}
+
+#timingButton {
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2vh;
+  color: white;
+  background-color: rgba(var(--main-theme-color), 1);
+  padding: 12px 0px;
+  width: 70px;
+  border-radius: 7px;
+  left: calc(50% + 6px);
+  transform: translateX(-50%);
+  cursor: pointer;
+  text-align: center;
+}
+
+#timingDropdown {
+  top: 37.5vh;
+}
+
+.dropdown {
+  position: absolute;
+  padding: 0;
+  border: none;
+  width: 100%;
+}
+
+.dropdown summary {
+  list-style: none;
+  list-style-type: none;
+}
+
+.dropdown>summary::-webkit-details-marker {
+  display: none;
+}
+
+.dropdown ul {
+  position: absolute;
+  margin: 20px 0 0 0;
+  padding: 5px 0;
+  width: 60px;
+  left: 50%;
+  box-sizing: border-box;
+  z-index: 2;
+  background: rgba(var(--lighten-theme-color), 1);
+  border-radius: 6px;
+  list-style: none;
+  top: 4.5vh;
+  transform: translateX(-50%);
+}
+
+.dropdown ul li {
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown ul li a:link, .dropdown ul li a:visited {
+  display: inline-block;
+  padding: 10px 0.8rem;
+  width: 100%;
+  box-sizing: border-box;
+  color: white;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.7vh;
+  text-align: center;
+}
+
+.dropdown ul li a:hover {
+  background-color: rgba(var(--darken-theme-color), 1);
+  color: white;
+}
+
+/* Dropdown triangle */
+.dropdown ul::before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -9px;
+  left: 50%;
+  margin-left: -10px;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent rgba(var(--lighten-theme-color), 1);
+  transparent;
+}
+
+/* Close the dropdown with outside clicks */
+.dropdown>summary::before {
+  display: none;
+}
+
+.dropdown[open]>summary::before {
+  content: ' ';
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
 }

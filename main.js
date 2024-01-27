@@ -14,6 +14,13 @@ const logger = new Signale({
   logLevel: 'info'
 });
 
+//video control default options
+const videoControlDefaults = {
+  themeColor: [70, 70, 70], //rgb
+  skipTiming: [1, 5, 10, 15, 30], //in seconds
+  skipDefault: 10
+}
+
 //Setup Electron
 app.whenReady().then(() => {
   createWindow()
@@ -112,6 +119,7 @@ const createWindow = () => {
       logger.debug(`Socket: disconnected ${Socket.id}`);
       clientCount--;
     });
+    io.emit('initial-setup', videoControlDefaults);
   });
 
 

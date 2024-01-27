@@ -8,7 +8,27 @@ function setThemeColor(color) {
   r.style.setProperty('--colorPrimary-l', color[2]);
 }
 
-setThemeColor([70, 70, 70]);
+function setSkipTiming(arr, initial) {
+  document.getElementById('timingList').innerHTML = '';
+  document.getElementById('timingButton').innerText = `${initial}s`;
+  window.skipTiming = initial;
+  let liNode, aNode;
+  let list = document.getElementById('timingList');
+  arr.forEach((timing) => {
+    let liNode = document.createElement('li');
+    let aNode = document.createElement('a');
+    aNode.setAttribute('href', '#');
+    aNode.innerText = `${timing}s`;
+    liNode.appendChild(aNode);
+    liNode.setAttribute('data-timing', timing);
+    liNode.addEventListener('click', function(e) {
+      window.skipTiming = parseFloat(this.getAttribute('data-timing'));
+      document.getElementById('timingButton').innerText = `${this.getAttribute('data-timing')}s`;
+      document.getElementById('timingDropdown').removeAttribute('open');
+    });
+    list.appendChild(liNode);
+  });
+}
 
 function setProgressTexts(seconds, duration) {
   let min = Math.floor(seconds / 60);
@@ -75,6 +95,7 @@ $(document).ready(function() {
   window.lastVideoProgress = 0;
   window.lastVideoDuration = 0;
   window.lastVolume = 0;
+  window.skipTiming;
 
   document.getElementById('playButton').addEventListener('click', function(e) {
     console.log('Play/Pause Button');
@@ -88,9 +109,18 @@ $(document).ready(function() {
     console.log('Volume Button');
     socket.emit("muted", emptyData);
   });
-  socket.on('initial-data', function(data) {
-    console.log(data);
-
+  document.getElementById('forwardButton').addEventListener('click', function(e) {
+    console.log('Forward Button');
+    socket.emit('seeking', window.lastVideoProgress + window.skipTiming);
+  });
+  document.getElementById('rewindButton').addEventListener('click', function(e) {
+    console.log('Rewind Button');
+    socket.emit('seeking', window.lastVideoProgress - window.skipTiming);
+  });
+  socket.on('initial-setup', function(data) {
+    console.log(`Initial setup: ${data}`);
+    setThemeColor(data.themeColor);
+    setSkipTiming(data.skipTiming, data.skipDefault);
   });
   socket.on('update', function(data) {
     // console.log(data);
