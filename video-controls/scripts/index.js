@@ -116,6 +116,7 @@ $(document).ready(function() {
 
   let socket = io.connect(location.host);
 
+  window.socket = socket;
   window.lastVideoProgress = 0;
   window.lastVideoDuration = 0;
   window.lastVolume = 0;

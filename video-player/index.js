@@ -49,6 +49,10 @@ $(document).ready(function() {
     videoplayer.volume(arg);
   });
 
+  ipcRenderer.on('changeSource', (event, arg) => {
+    videoplayer.src(arg);
+  });
+
   ipcRenderer.on('muted', (event, arg) => {
     if (videoplayer.muted()) {
       videoplayer.muted(false);

@@ -19,8 +19,8 @@ const videoControlDefaults = {
   themeColor: [70, 70, 70], //rgb
   skipTiming: [1, 5, 10, 15, 30], //in seconds
   skipDefault: 10, //must be in skipTiming
-  playRate: [0.5, 1, 1.5, 2],
-  playRateDefault: 1
+  playRate: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2], //times
+  playRateDefault: 1 //must be in playRate list
 }
 
 //Setup Electron
@@ -47,7 +47,7 @@ let fullscreen = false;
 
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  const videoPlayerWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -59,11 +59,11 @@ const createWindow = () => {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile('./video-player/index.html');
-  mainWindow.setMenu(null);
+  videoPlayerWindow.loadFile('./video-player/index.html');
+  // videoPlayerWindow.setMenu(null);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // videoPlayerWindow.webContents.openDevTools()
 
   //Setup Express server for video controls
   const port = 8000;
@@ -95,34 +95,38 @@ const createWindow = () => {
     });
     Socket.on("playpause", function(data) {
       logger.info('Socket: playpause');
-      mainWindow.send('playpause');
+      videoPlayerWindow.send('playpause');
     });
     Socket.on("fullscreen", function(data) {
       logger.info('Socket: fullscreen');
       if (fullscreen) {
-        mainWindow.setFullScreen(false);
+        videoPlayerWindow.setFullScreen(false);
       } else {
-        mainWindow.setFullScreen(true);
+        videoPlayerWindow.setFullScreen(true);
       }
       fullscreen = !fullscreen;
-      mainWindow.send('request-update');
+      videoPlayerWindow.send('request-update');
     });
     Socket.on("seeking", function(data) {
-      mainWindow.send('seeking', data);
+      videoPlayerWindow.send('seeking', data);
     });
     Socket.on("volume", function(data) {
-      mainWindow.send('volume', data);
+      videoPlayerWindow.send('volume', data);
     });
     Socket.on("playrate", function(data) {
-      mainWindow.send('playrate', data);
+      videoPlayerWindow.send('playrate', data);
     });
     Socket.on("muted", function(data) {
       logger.info('Socket: muted')
-      mainWindow.send('muted', data);
+      videoPlayerWindow.send('muted', data);
     });
     Socket.on("disconnect", function(data) {
       logger.debug(`Socket: disconnected ${Socket.id}`);
       clientCount--;
+    });
+    Socket.on('changeSource', function(data) {
+      logger.info('Socket: changeSource')
+      videoPlayerWindow.send('changeSource', data);
     });
     io.emit('initial-setup', videoControlDefaults);
   });
