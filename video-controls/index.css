@@ -202,6 +202,26 @@ body {
   transition-duration: 1s
 }
 
+#playRateButton {
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2vh;
+  color: white;
+  background-color: rgba(var(--main-theme-color), 1);
+  padding: 12px 0px;
+  width: 70px;
+  border-radius: 7px;
+  left: calc(50% + 6px);
+  transform: translateX(-50%);
+  cursor: pointer;
+  text-align: center;
+}
+
+#playRateDropdown {
+  position: relative;
+  top: 12px;
+}
+
 #timingButton {
   position: absolute;
   font-family: 'Poppins', sans-serif;
@@ -242,7 +262,7 @@ body {
   margin: 20px 0 0 0;
   padding: 5px 0;
   width: 60px;
-  left: 50%;
+  left: calc(50% + 6px);
   box-sizing: border-box;
   z-index: 2;
   background: rgba(var(--lighten-theme-color), 1);

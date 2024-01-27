@@ -13,7 +13,8 @@ function sendStateUpdate(videoplayer) {
     'videoduration': videoplayer.duration(),
     'videoprogress': videoplayer.currentTime(),
     'volume': videoplayer.volume(),
-    'muted': videoplayer.muted()
+    'muted': videoplayer.muted(),
+    'playrate': videoplayer.playbackRate()
   };
   ipcRenderer.send('player-update', data);
 }
@@ -38,6 +39,10 @@ $(document).ready(function() {
 
   ipcRenderer.on('seeking', (event, arg) => {
     videoplayer.currentTime(arg);
+  });
+
+  ipcRenderer.on('playrate', (event, arg) => {
+    videoplayer.playbackRate(arg);
   });
 
   ipcRenderer.on('volume', (event, arg) => {

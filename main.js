@@ -18,7 +18,9 @@ const logger = new Signale({
 const videoControlDefaults = {
   themeColor: [70, 70, 70], //rgb
   skipTiming: [1, 5, 10, 15, 30], //in seconds
-  skipDefault: 10
+  skipDefault: 10, //must be in skipTiming
+  playRate: [0.5, 1, 1.5, 2],
+  playRateDefault: 1
 }
 
 //Setup Electron
@@ -61,7 +63,7 @@ const createWindow = () => {
   mainWindow.setMenu(null);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   //Setup Express server for video controls
   const port = 8000;
@@ -110,6 +112,9 @@ const createWindow = () => {
     });
     Socket.on("volume", function(data) {
       mainWindow.send('volume', data);
+    });
+    Socket.on("playrate", function(data) {
+      mainWindow.send('playrate', data);
     });
     Socket.on("muted", function(data) {
       logger.info('Socket: muted')

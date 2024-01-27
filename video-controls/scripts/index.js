@@ -8,6 +8,30 @@ function setThemeColor(color) {
   r.style.setProperty('--colorPrimary-l', color[2]);
 }
 
+function setPlayRate(arr, initial, socket) {
+  document.getElementById('playRateList').innerHTML = '';
+  document.getElementById('playRateButton').innerText = `${initial}⨯`;
+  window.playRate = initial;
+  let liNode, aNode;
+  let list = document.getElementById('playRateList');
+  arr.forEach((pr) => {
+    let liNode = document.createElement('li');
+    let aNode = document.createElement('a');
+    aNode.setAttribute('href', '#');
+    aNode.innerText = `${pr}⨯`;
+    liNode.appendChild(aNode);
+    liNode.setAttribute('data-playrate', pr);
+    liNode.addEventListener('click', function(e) {
+      let pr = parseFloat(this.getAttribute('data-playrate'));
+      window.playRate = pr;
+      socket.emit('playrate', pr)
+      document.getElementById('playRateButton').innerText = `${pr}⨯`;
+      document.getElementById('playRateDropdown').removeAttribute('open');
+    });
+    list.appendChild(liNode);
+  });
+}
+
 function setSkipTiming(arr, initial) {
   document.getElementById('timingList').innerHTML = '';
   document.getElementById('timingButton').innerText = `${initial}s`;
@@ -96,6 +120,7 @@ $(document).ready(function() {
   window.lastVideoDuration = 0;
   window.lastVolume = 0;
   window.skipTiming;
+  window.playRate;
 
   document.getElementById('playButton').addEventListener('click', function(e) {
     console.log('Play/Pause Button');
@@ -121,6 +146,7 @@ $(document).ready(function() {
     console.log(`Initial setup: ${data}`);
     setThemeColor(data.themeColor);
     setSkipTiming(data.skipTiming, data.skipDefault);
+    setPlayRate(data.playRate, data.playRateDefault, socket);
   });
   socket.on('update', function(data) {
     // console.log(data);
